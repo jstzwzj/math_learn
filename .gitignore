@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Obsidian（工作区状态每次打开都变，不适合入库）
+.obsidian/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
