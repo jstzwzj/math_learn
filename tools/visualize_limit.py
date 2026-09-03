@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """把第 01 讲的四个极限结论画出来（可视化版）。
 
-运行: python3 tools/visualize_limit.py
+运行（macOS/Linux）: python3 tools/visualize_limit.py
+运行（Windows）:     python tools\visualize_limit.py
   - 弹出图窗口，同时保存 PNG 到 tools/limit_plots.png
   - 在无显示环境（MPLBACKEND=Agg）下只保存不弹窗
-依赖: matplotlib（pip3 install --user matplotlib）
+依赖: matplotlib（pip install matplotlib），macOS/Windows/Linux 通用，中文字体自动选择
 
 四个面板:
   1. 数列 n/(n+1) 收敛到 1 —— 趋势逼近但永远不到达
@@ -22,8 +23,15 @@ from matplotlib import font_manager, rcParams
 
 
 def setup_chinese_font() -> None:
-    """macOS 上挑一个可用的中文字体，避免图里中文变方框。"""
-    candidates = ["PingFang SC", "Hiragino Sans GB", "Arial Unicode MS", "Heiti TC", "STHeiti"]
+    """按平台挑一个可用的中文字体，避免图里中文变方框。"""
+    candidates = [
+        # macOS
+        "PingFang SC", "Hiragino Sans GB", "Arial Unicode MS", "Heiti TC", "STHeiti",
+        # Windows
+        "Microsoft YaHei", "SimHei", "SimSun",
+        # Linux
+        "Noto Sans CJK SC", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei",
+    ]
     available = {f.name for f in font_manager.fontManager.ttflist}
     for name in candidates:
         if name in available:

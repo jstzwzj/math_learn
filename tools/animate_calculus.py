@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """把微积分里"动起来才好懂"的概念做成 GIF 动画。
 
-运行: python3 tools/animate_calculus.py
+运行（macOS/Linux）: python3 tools/animate_calculus.py
+运行（Windows）:     python tools\animate_calculus.py
   - 生成三个 GIF 到 tools/ 目录
   - 在有显示环境时会弹出三个动画窗口（关闭即退出）
-依赖: matplotlib + pillow（pip3 install --user matplotlib pillow）
+依赖: matplotlib + pillow（pip install matplotlib pillow），macOS/Windows/Linux 通用，中文字体自动选择
 
 三个动画分别预告三大核心概念:
   1. secant_to_tangent.gif  割线 -> 切线（导数的定义，第 05 讲）
@@ -25,8 +26,15 @@ TOOLS_DIR = Path(__file__).resolve().parent
 
 
 def setup_chinese_font() -> None:
-    """macOS 上挑一个可用的中文字体，避免图里中文变方框。"""
-    candidates = ["PingFang SC", "Hiragino Sans GB", "Arial Unicode MS", "Heiti TC", "STHeiti"]
+    """按平台挑一个可用的中文字体，避免图里中文变方框。"""
+    candidates = [
+        # macOS
+        "PingFang SC", "Hiragino Sans GB", "Arial Unicode MS", "Heiti TC", "STHeiti",
+        # Windows
+        "Microsoft YaHei", "SimHei", "SimSun",
+        # Linux
+        "Noto Sans CJK SC", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei",
+    ]
     available = {f.name for f in font_manager.fontManager.ttflist}
     for name in candidates:
         if name in available:

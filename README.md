@@ -102,3 +102,23 @@ math_learn/
 2. 打开 `notes/第01讲-极限的直觉.md` 开始第一课
 3. 学完第一课后跑一下 `python3 tools/verify_limit.py` 和 `python3 tools/visualize_limit.py`，一个看数字逼近，一个看图形化直觉
 4. 之后每周在 `notes/` 里新建一个文件写笔记，在 `exercises/` 里记录错题
+
+## 在 Windows / Linux 上运行
+
+工程本身跨平台，脚本会自动选择当前系统的中文字体。依赖只有 matplotlib 和 pillow：
+
+```bash
+# Windows（PowerShell 或 CMD，需已安装 Python 3.8+，勾选过 "Add to PATH"）
+pip install matplotlib pillow
+python tools\verify_limit.py
+python tools\visualize_limit.py
+python tools\animate_calculus.py
+
+# macOS / Linux
+pip3 install --user matplotlib pillow
+python3 tools/verify_limit.py
+python3 tools/visualize_limit.py
+python3 tools/animate_calculus.py
+```
+
+Windows 下首次运行若弹出"防火墙允许"提示，允许即可（本地绘图不需要联网）。GIF/PNG 输出都在 `tools/` 目录下。
