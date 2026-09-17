@@ -1,0 +1,6 @@
+# 双端协作（macOS/Windows）：文本文件统一 LF 换行，避免 CRLF 来回转换产生假改动
+* text=auto eol=lf
+
+# 图片/动画生成物按二进制处理，禁止任何换行符转换
+*.png binary
+*.gif binary

@@ -87,9 +87,10 @@
 math_learn/
 ├── README.md            # 本文件：路线图
 ├── 学习方法.md           # 怎么学最有效率
+├── requirements.txt     # Python 依赖清单（pip install -r requirements.txt）
 ├── notes/               # 你的学习笔记（按章节建文件）
 │   └── 第01讲-极限的直觉.md   # 第一课，今天就可以开始
-├── exercises/           # 做题记录 / 错题本
+├── exercises/           # 做题记录 / 错题本（含记录模板）
 └── tools/               # 用代码验证数学的脚本
     ├── verify_limit.py       # 文字版：数值验证极限和导数
     ├── visualize_limit.py    # 图形版：四张图看懂极限（输出 limit_plots.png）
@@ -105,20 +106,42 @@ math_learn/
 
 ## 在 Windows / Linux 上运行
 
-工程本身跨平台，脚本会自动选择当前系统的中文字体。依赖只有 matplotlib 和 pillow：
+工程本身跨平台，脚本会自动选择当前系统的中文字体。需已安装 Python 3.8+（Windows 安装时记得勾选 "Add to PATH"）。先安装依赖（一次即可）：
 
 ```bash
-# Windows（PowerShell 或 CMD，需已安装 Python 3.8+，勾选过 "Add to PATH"）
-pip install matplotlib pillow
+# Windows（PowerShell 或 CMD）
+pip install -r requirements.txt
+
+# macOS / Linux
+pip3 install -r requirements.txt
+```
+
+然后运行脚本（Windows 推荐 PowerShell 7；macOS / Linux 用 `python3`）：
+
+```powershell
+# Windows（PowerShell 7）
 python tools\verify_limit.py
 python tools\visualize_limit.py
 python tools\animate_calculus.py
 
+# 无显示环境（远程 / CI）：只生成图片，不弹窗
+$env:MPLBACKEND="Agg"
+python tools\visualize_limit.py
+```
+
+```bash
 # macOS / Linux
-pip3 install --user matplotlib pillow
 python3 tools/verify_limit.py
 python3 tools/visualize_limit.py
 python3 tools/animate_calculus.py
+
+# 无显示环境（SSH / CI）：只生成图片，不弹窗
+MPLBACKEND=Agg python3 tools/visualize_limit.py
 ```
+
+> **还在用 Windows 自带的 PowerShell 5.1 或 CMD？**
+> - PowerShell 5.1 不支持 `&&` 串联命令，请分行执行；环境变量写法 `$env:MPLBACKEND="Agg"` 与 PS7 相同。
+> - CMD 设置环境变量用 `set MPLBACKEND=Agg`（单独一行，再执行脚本）。
+> - 个别老控制台打印中文可能显示为 `?`，不影响图片 / GIF 生成；换用 PS7 或 Windows Terminal 即正常。
 
 Windows 下首次运行若弹出"防火墙允许"提示，允许即可（本地绘图不需要联网）。GIF/PNG 输出都在 `tools/` 目录下。

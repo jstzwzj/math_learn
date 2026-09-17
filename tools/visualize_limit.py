@@ -5,7 +5,7 @@
 运行（Windows）:     python tools\visualize_limit.py
   - 弹出图窗口，同时保存 PNG 到 tools/limit_plots.png
   - 在无显示环境（MPLBACKEND=Agg）下只保存不弹窗
-依赖: matplotlib（pip install matplotlib），macOS/Windows/Linux 通用，中文字体自动选择
+依赖: matplotlib（pip install -r requirements.txt），macOS/Windows/Linux 通用，中文字体自动选择
 
 四个面板:
   1. 数列 n/(n+1) 收敛到 1 —— 趋势逼近但永远不到达
@@ -14,12 +14,16 @@
   4. sin(1/x) 在 x->0 附近震荡 —— 极限不存在的反例
 """
 
+import sys
 from pathlib import Path
 
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import font_manager, rcParams
+
+# Windows 老控制台兜底：打不出的字符用 "?" 代替而不是崩溃（PS7 / macOS / Linux 无影响）
+sys.stdout.reconfigure(errors="replace")
 
 
 def setup_chinese_font() -> None:
@@ -37,6 +41,9 @@ def setup_chinese_font() -> None:
         if name in available:
             rcParams["font.sans-serif"] = [name]
             break
+    else:
+        print("警告：未找到可用中文字体，图中文字可能显示为方框"
+              "（macOS/Windows 一般自带中文字体，Linux 可安装 Noto Sans CJK）。")
     rcParams["axes.unicode_minus"] = False
 
 

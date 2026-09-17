@@ -9,6 +9,11 @@
 """
 
 import math
+import sys
+
+# Windows 老控制台兜底：打不出的字符用 "?" 代替而不是崩溃（PS7 / macOS / Linux 无影响）
+sys.stdout.reconfigure(errors="replace")
+
 
 def section(title: str) -> None:
     print(f"\n{'=' * 50}\n{title}\n{'=' * 50}")

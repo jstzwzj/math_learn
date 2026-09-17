@@ -5,7 +5,7 @@
 运行（Windows）:     python tools\animate_calculus.py
   - 生成三个 GIF 到 tools/ 目录
   - 在有显示环境时会弹出三个动画窗口（关闭即退出）
-依赖: matplotlib + pillow（pip install matplotlib pillow），macOS/Windows/Linux 通用，中文字体自动选择
+依赖: matplotlib + pillow（pip install -r requirements.txt），macOS/Windows/Linux 通用，中文字体自动选择
 
 三个动画分别预告三大核心概念:
   1. secant_to_tangent.gif  割线 -> 切线（导数的定义，第 05 讲）
@@ -14,6 +14,7 @@
 """
 
 import math
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -21,6 +22,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import font_manager, rcParams
 from matplotlib.animation import FuncAnimation, PillowWriter
+
+# Windows 老控制台兜底：打不出的字符用 "?" 代替而不是崩溃（PS7 / macOS / Linux 无影响）
+sys.stdout.reconfigure(errors="replace")
 
 TOOLS_DIR = Path(__file__).resolve().parent
 
@@ -40,6 +44,9 @@ def setup_chinese_font() -> None:
         if name in available:
             rcParams["font.sans-serif"] = [name]
             break
+    else:
+        print("警告：未找到可用中文字体，图中文字可能显示为方框"
+              "（macOS/Windows 一般自带中文字体，Linux 可安装 Noto Sans CJK）。")
     rcParams["axes.unicode_minus"] = False
 
 

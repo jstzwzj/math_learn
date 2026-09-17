@@ -1,0 +1,5 @@
+# tools/ 下验证脚本的依赖（numpy 随 matplotlib 自动安装）
+matplotlib>=3.8
+pillow>=10.0
+# sympy 仅供手算后对照答案（见 学习方法.md「符号计算」一节），tools/ 脚本不依赖它
+sympy>=1.12
