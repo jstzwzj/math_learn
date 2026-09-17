@@ -24,7 +24,7 @@
   ```
 - sympy 仅供学习者手算后对照答案（见 `学习方法.md`「符号计算」一节），`tools/` 脚本不 import 它。
 - 各脚本依赖不同，注意区分：
-  - `tools/verify_limit.py`：**仅用标准库** `math`，零安装即可运行
+  - `tools/verify_limit.py`、`tools/verify_infinitesimal.py`：**仅用标准库** `math`，零安装即可运行
   - `tools/visualize_limit.py`：matplotlib + numpy
   - `tools/animate_calculus.py`：matplotlib + numpy + pillow（GIF 用 PillowWriter 写出）
 - 当前环境已验证可用版本：matplotlib 3.10.9 / numpy 2.2.6 / pillow 12.1.1
@@ -59,10 +59,12 @@ math_learn/
 ├── requirements.txt     # Python 依赖清单
 ├── .gitattributes       # 文本统一 LF、PNG/GIF 标记二进制（mac/Windows 双端协作）
 ├── notes/               # 学习笔记，一讲一文件
-│   └── 第01讲-极限的直觉.md
+│   ├── 第01讲-极限的直觉.md
+│   └── 第02讲-极限的运算法则与无穷小的比较.md
 ├── exercises/           # 做题记录/错题本（内置 README.md 记录模板）
 └── tools/               # 验证脚本及其生成物（生成物已提交进 git）
-    ├── verify_limit.py       # 数值验证：数列极限、sin(x)/x、差商、震荡反例
+    ├── verify_limit.py       # 数值验证：数列极限、sin(x)/x、差商、震荡反例（第 01 讲）
+    ├── verify_infinitesimal.py # 数值验证：等价无穷小、高阶比较、替换陷阱（第 02 讲）
     ├── visualize_limit.py    # 四面板可视化 → limit_plots.png
     ├── animate_calculus.py   # 三个 GIF：割线→切线、黎曼和、泰勒逼近
     └── *.png / *.gif         # 脚本输出，确定性与脚本同步提交
@@ -88,7 +90,12 @@ math_learn/
 - 文件命名：`第NN讲-标题.md`（NN 两位数字，如 `第01讲-极限的直觉.md`）
 - 现有讲次的结构模板（新讲次请对齐）：开头引用块注明学习时长 → 正文分节（直觉先行，ε-δ 等严格定义靠后且注明"见过即可"）→「课后练习」→ 折叠线后附「答案」→「动手环节」（引用 `tools/` 脚本）→「下一讲预告」
 - 教学口吻：面向"会编程、数学忘掉大半"的读者，大量把数学概念映射到编程概念（极限≈收敛迭代、积分≈for 循环累加等）
-- 数学公式现阶段用行内代码块/代码围栏写 ASCII 形式（如 `lim_{x→0} sin(x)/x = 1`），图内才用 LaTeX（matplotlib 的 `$...$`）
+- 数学公式用 LaTeX 写：行内 `$...$`，独立成行用 `$$...$$`（Obsidian 与 GitHub 都能渲染成真正的数学符号，见 `notes/` 现有讲次的写法）
+  - 多行公式用 `\begin{aligned}` 配 `&` 对齐，**不要用** `\begin{align}`（GitHub 的 MathJax 不支持）
+  - 公式内不混中文：`\text{...}` 里的中文在部分渲染器会缺字形，中文一律写在公式外面
+  - 行内分数优先用 `\dfrac`（显示体，可读性好于 `\frac`）
+  - 代码块、终端输出、commit message 里仍用 ASCII 写法（这些场合不渲染 LaTeX）
+  - 标题里不写 LaTeX（会让锚点变成转义字符），用 Unicode 符号即可（如 `→`、`≤`、`α`、`ε`）
 
 ## 测试策略
 
