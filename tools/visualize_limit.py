@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""把第 01 讲的四个极限结论画出来（可视化版）。
+r"""把第 01 讲的四个极限结论画出来（可视化版）。
+
+配套笔记: notes/第01讲-极限的直觉.md
 
 运行（macOS/Linux）: python3 tools/visualize_limit.py
 运行（Windows）:     python tools\visualize_limit.py
-  - 弹出图窗口，同时保存 PNG 到 tools/limit_plots.png
+  - 弹出图窗口，同时保存 PNG 到 assets/images/lecture01/limit_plots.png
   - 在无显示环境（MPLBACKEND=Agg）下只保存不弹窗
 依赖: matplotlib（pip install -r requirements.txt），macOS/Windows/Linux 通用，中文字体自动选择
 
@@ -123,13 +125,16 @@ def main() -> None:
     fig.suptitle("第 01 讲 · 用眼睛看极限", fontsize=15, fontweight="bold")
     fig.tight_layout(rect=[0, 0, 1, 0.96])
 
-    out_path = Path(__file__).resolve().parent / "limit_plots.png"
+    output_dir = Path(__file__).resolve().parent.parent / "assets" / "images" / "lecture01"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    out_path = output_dir / "limit_plots.png"
     fig.savefig(out_path, dpi=150)
     print(f"已保存图片: {out_path}")
 
     if matplotlib.get_backend().lower() != "agg":
         plt.show()
     else:
+        plt.close(fig)
         print("当前为无显示环境（Agg），跳过弹窗。")
 
 

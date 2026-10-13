@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""把微积分里"动起来才好懂"的概念做成 GIF 动画。
+r"""把微积分里"动起来才好懂"的概念做成 GIF 动画。
+
+导读笔记: notes/第01讲-极限的直觉.md（预告第 05、09、14 讲）
 
 运行（macOS/Linux）: python3 tools/animate_calculus.py
 运行（Windows）:     python tools\animate_calculus.py
-  - 生成三个 GIF 到 tools/ 目录
+  - 生成三个 GIF 到 assets/animations/ 目录
   - 在有显示环境时会弹出三个动画窗口（关闭即退出）
 依赖: matplotlib + pillow（pip install -r requirements.txt），macOS/Windows/Linux 通用，中文字体自动选择
 
@@ -26,7 +28,7 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 # Windows 老控制台兜底：打不出的字符用 "?" 代替而不是崩溃（PS7 / macOS / Linux 无影响）
 sys.stdout.reconfigure(errors="replace")
 
-TOOLS_DIR = Path(__file__).resolve().parent
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "assets" / "animations"
 
 
 def setup_chinese_font() -> None:
@@ -80,7 +82,7 @@ def make_secant_animation() -> FuncAnimation:
         ax.legend(loc="upper left")
 
     anim = FuncAnimation(fig, draw, frames=frames, interval=80)
-    anim.save(TOOLS_DIR / "secant_to_tangent.gif", writer=PillowWriter(fps=12))
+    anim.save(OUTPUT_DIR / "secant_to_tangent.gif", writer=PillowWriter(fps=12))
     print("已生成 secant_to_tangent.gif")
     return anim
 
@@ -114,7 +116,7 @@ def make_riemann_animation() -> FuncAnimation:
         ax.legend(loc="lower right")
 
     anim = FuncAnimation(fig, draw, frames=len(ns), interval=1200)
-    anim.save(TOOLS_DIR / "riemann_sum.gif", writer=PillowWriter(fps=1))
+    anim.save(OUTPUT_DIR / "riemann_sum.gif", writer=PillowWriter(fps=1))
     print("已生成 riemann_sum.gif")
     return anim
 
@@ -145,13 +147,14 @@ def make_taylor_animation() -> FuncAnimation:
         ax.legend(loc="lower left")
 
     anim = FuncAnimation(fig, draw, frames=len(degrees), interval=1500)
-    anim.save(TOOLS_DIR / "taylor_sin.gif", writer=PillowWriter(fps=1))
+    anim.save(OUTPUT_DIR / "taylor_sin.gif", writer=PillowWriter(fps=1))
     print("已生成 taylor_sin.gif")
     return anim
 
 
 def main() -> None:
     setup_chinese_font()
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     anims = [
         make_secant_animation(),

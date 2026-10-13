@@ -2,6 +2,22 @@
 
 > 目标：用 6 个月左右学完高等数学核心内容（同济版上册为主，下册选学），建立扎实的微积分直觉和计算能力。
 
+## 从这里开始
+
+- **读笔记**：点击下面的讲次链接，在 Obsidian 阅读视图、GitHub 或 IDE Markdown 预览中看正文和配图。
+- **做练习**：每讲末尾都有题目与答案；做完再对照，用 [错题模板](exercises/README.md) 记录。
+- **跑代码**：数值验证不需要安装依赖；重新生成配图才需要安装 `requirements.txt`。
+- **找素材**：静态图在 `assets/images/lectureNN/`，动画在 `assets/animations/`；图片已随仓库保存，不运行脚本也能看。
+
+| 讲次 | 学习笔记 | 配图 | 数值验证 / 绘图脚本（位于 tools/） |
+|---|---|---|---|
+| 01 | [极限的直觉](notes/第01讲-极限的直觉.md) | [极限四面板](assets/images/lecture01/limit_plots.png) | `verify_limit.py` / `visualize_limit.py` |
+| 02 | [极限的运算法则与无穷小的比较](notes/第02讲-极限的运算法则与无穷小的比较.md) | [无穷小四面板](assets/images/lecture02/infinitesimal_plots.png) | `verify_infinitesimal.py` / `visualize_infinitesimal.py` |
+| 03 | [第二个重要极限与 e](notes/第03讲-第二个重要极限与e.md) | [复利与极限四面板](assets/images/lecture03/e_limit_plots.png) | `verify_e_limit.py` / `visualize_e_limit.py` |
+| 04 | [连续性与间断点](notes/第04讲-连续性与间断点.md) | [连续与间断](assets/images/lecture04/continuity_types.png) · [定理与二分法](assets/images/lecture04/continuity_theorems.png) | `verify_continuity.py` / `visualize_continuity.py` |
+
+> **只阅读，无需配置 Python。** 建议按“直觉 → 看图 → 手算 → 数值核对”的顺序学习；完整节奏见 [学习方法](学习方法.md)。讲次是知识单元，不必机械地与下方周计划一一对应。
+
 ## 为什么程序员学高数不吃亏
 
 - **机器学习 / AI**：梯度下降、反向传播、损失函数，全是导数和偏导数
@@ -85,26 +101,38 @@
 
 ```
 math_learn/
-├── README.md            # 本文件：路线图
-├── 学习方法.md           # 怎么学最有效率
-├── requirements.txt     # Python 依赖清单（pip install -r requirements.txt）
-├── notes/               # 你的学习笔记（按章节建文件）
-│   ├── 第01讲-极限的直觉.md   # 第一课，今天就可以开始
-│   └── 第02讲-极限的运算法则与无穷小的比较.md
-├── exercises/           # 做题记录 / 错题本（含记录模板）
-└── tools/               # 用代码验证数学的脚本
-    ├── verify_limit.py       # 文字版：数值验证极限和导数（第 01 讲）
-    ├── verify_infinitesimal.py # 文字版：数值验证等价无穷小与替换陷阱（第 02 讲）
-    ├── visualize_limit.py    # 图形版：四张图看懂极限（输出 limit_plots.png）
-    └── animate_calculus.py   # 动画版：割线变切线/黎曼和/泰勒逼近（输出 3 个 GIF）
+├── README.md               # 学习入口：讲次导航 + 24 周路线图
+├── 学习方法.md              # 怎么学、怎么做题和复习
+├── requirements.txt        # 绘图 / 符号验算依赖
+├── AGENTS.md               # AI 协作指南，学习时可忽略
+├── notes/                  # 读：按讲次排列，正文中直接显示配图
+│   ├── 第01讲-极限的直觉.md
+│   ├── 第02讲-极限的运算法则与无穷小的比较.md
+│   ├── 第03讲-第二个重要极限与e.md
+│   └── 第04讲-连续性与间断点.md
+├── exercises/              # 练：做题记录 / 错题本
+│   └── README.md           # 记录模板
+├── tools/                  # 跑：独立 Python 脚本，不存图片
+│   ├── verify_*.py         # 数值核对（仅标准库）
+│   ├── visualize_*.py      # 数学配图（matplotlib + numpy）
+│   └── animate_calculus.py # 后续微积分概念动画
+└── assets/                 # 看：配图 / 动画，随仓库保存
+    ├── images/
+    │   ├── lecture01/      # 极限的直觉
+    │   ├── lecture02/      # 无穷小与替换陷阱
+    │   ├── lecture03/      # 第二个重要极限与 e
+    │   └── lecture04/      # 连续、间断、定理与二分法
+    └── animations/         # 割线变切线 / 黎曼和 / 泰勒逼近
 ```
 
 ## 使用方法
 
-1. 先读 `学习方法.md`（5 分钟）
-2. 打开 `notes/第01讲-极限的直觉.md` 开始第一课
-3. 学完第一课后跑一下 `python3 tools/verify_limit.py` 和 `python3 tools/visualize_limit.py`，一个看数字逼近，一个看图形化直觉
-4. 之后每周在 `notes/` 里新建一个文件写笔记，在 `exercises/` 里记录错题
+1. 先读 [学习方法](学习方法.md)（5 分钟）。
+2. 从首页讲次表打开笔记；切换到 Markdown 预览 / 阅读视图，就能看到公式和配图。纯文本编辑视图中显示的是图片引用语法。
+3. 先完成课后练习，再运行该讲的 `verify_*.py` 核对数值。想探索图形时，运行对应的 `visualize_*.py`，可修改参数后重新生成图片。
+4. 在 `exercises/` 里记录错题，按周回顾；新讲次沿用 `第NN讲-标题.md` 命名。
+
+笔记使用标准 Markdown 相对图片路径，Obsidian 与 GitHub 均可显示。移动笔记或素材时需同步更新引用；分享时应保留仓库目录结构，不要只发送一个 `.md` 文件。
 
 ## 在 Windows / Linux 上运行
 
@@ -124,6 +152,9 @@ pip3 install -r requirements.txt
 # Windows（PowerShell 7）
 python tools\verify_limit.py
 python tools\visualize_limit.py
+python tools\visualize_infinitesimal.py
+python tools\visualize_e_limit.py
+python tools\visualize_continuity.py
 python tools\animate_calculus.py
 
 # 无显示环境（远程 / CI）：只生成图片，不弹窗
@@ -135,6 +166,9 @@ python tools\visualize_limit.py
 # macOS / Linux
 python3 tools/verify_limit.py
 python3 tools/visualize_limit.py
+python3 tools/visualize_infinitesimal.py
+python3 tools/visualize_e_limit.py
+python3 tools/visualize_continuity.py
 python3 tools/animate_calculus.py
 
 # 无显示环境（SSH / CI）：只生成图片，不弹窗
@@ -146,4 +180,4 @@ MPLBACKEND=Agg python3 tools/visualize_limit.py
 > - CMD 设置环境变量用 `set MPLBACKEND=Agg`（单独一行，再执行脚本）。
 > - 个别老控制台打印中文可能显示为 `?`，不影响图片 / GIF 生成；换用 PS7 或 Windows Terminal 即正常。
 
-Windows 下首次运行若弹出"防火墙允许"提示，允许即可（本地绘图不需要联网）。GIF/PNG 输出都在 `tools/` 目录下。
+Windows 下首次运行若弹出"防火墙允许"提示，允许即可（本地绘图不需要联网）。PNG 输出到 `assets/images/lectureNN/`，GIF 输出到 `assets/animations/`。输出路径以脚本位置为基准，从其他工作目录运行也不会把图片写到错误的位置；目录不存在时脚本会自动创建。
